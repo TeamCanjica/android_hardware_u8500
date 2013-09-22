@@ -12,13 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ifeq ($(BOARD_USES_STE_HARDWARE), true)
-
 ifeq ($(TARGET_SOC), u8500)
 
 display-libs := b2r2lib
-
 include $(call all-named-subdir-makefiles,$(display-libs))
 
-endif # TARGET_SOC
-endif # BOARD_USES_STE_HARDWARE
+endif
