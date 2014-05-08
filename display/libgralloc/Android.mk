@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-MULTIMEDIA_PATH := hardware/ste-sony/multimedia
+MULTIMEDIA_PATH := hardware/u8500/multimedia
 
 LOCAL_PATH := $(call my-dir)
 
