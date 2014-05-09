@@ -148,7 +148,7 @@ static CPresult Read( CPhandle hContent, CPbyte *pData, CPuint nSize)
 
   count = read(pFilePipe->fd, (void*) pData, (size_t) nSize);
 
-  if(count < nSize) {
+  if(count < (int)nSize) {
     err = KD_EIO;  /* ??? */
   } else if(count == -1) {
     err = KD_EIO;  /* ??? */
@@ -196,7 +196,7 @@ static CPresult Write( CPhandle hContent, CPbyte *pData, CPuint nSize)
 
   ret = write(pFilePipe->fd, (void*) pData, (size_t) nSize);
 
-  if(ret < nSize) {
+  if(ret < (int)nSize) {
     err = KD_EIO;  /* ??? */
   } else if(ret == -1) {
     err = KD_EIO;  /* ??? */

@@ -236,7 +236,7 @@ DEBUG(DEB_LEV_FUNCTION_NAME, "In %s flushed all the buffers under processing\n",
   }
   /*Port is tunneled and supplier and didn't received all it's buffer then wait for the buffers*/
   if (PORT_IS_TUNNELED_N_BUFFER_SUPPLIER(openmaxStandPort)) {
-    while(openmaxStandPort->pBufferQueue->nelem!= openmaxStandPort->nNumAssignedBuffers){
+    while((unsigned int)openmaxStandPort->pBufferQueue->nelem!= openmaxStandPort->nNumAssignedBuffers){
       tsem_down(openmaxStandPort->pBufferSem);
       DEBUG(DEB_LEV_PARAMS, "In %s Got a buffer qelem=%d\n",__func__,openmaxStandPort->pBufferQueue->nelem);
     }

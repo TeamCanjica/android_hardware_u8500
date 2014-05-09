@@ -257,7 +257,7 @@ void RM_printList(ComponentListType *list, int viewFlag) {
  * the oldest_component_preemptable will contain the reference to the preemptable
  * component with the oldest time stamp.
  */
-int searchLowerPriority(ComponentListType *list, int current_priority, ComponentListType **oldest_component_preemptable) {
+int searchLowerPriority(ComponentListType *list,int current_priority, ComponentListType **oldest_component_preemptable) {
 	ComponentListType *componentTemp;
 	ComponentListType *componentCandidate;
 	DEBUG(DEB_LEV_FUNCTION_NAME, "In %s\n", __func__);
@@ -269,7 +269,7 @@ int searchLowerPriority(ComponentListType *list, int current_priority, Component
 	componentTemp = list;
 	componentCandidate = NULL;
 	while (componentTemp) {
-		if (componentTemp->nGroupPriority > current_priority) {
+		if (componentTemp->nGroupPriority > (unsigned int)current_priority) {
 			nComp++;
 		}
 		if (nComp>0) {

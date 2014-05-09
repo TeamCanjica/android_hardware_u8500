@@ -40,7 +40,7 @@
 #define INSTALL_PATH_STR "/usr/local/lib/bellagio"
 #endif
 #define DEFAULT_LOADER_LIBRARY_NAME "/libstbaseloader.so"
-
+extern ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 /**
  * This function allocates all the structures needed by the component loaders
  * available in the system and initialize the function pointers of the loader.
@@ -64,7 +64,6 @@ int createComponentLoaders() {
 	char *omxloader_registry_filename;
 	char *dir, *dirp;
 	int onlyDefault = 0;
-	int oneAtLeast = 0;
 	OMX_ERRORTYPE eError;
 
 	omxloader_registry_filename = loadersRegistryGetFilename(OMX_LOADERS_FILENAME);
@@ -146,32 +145,23 @@ int createComponentLoaders() {
 			free(loader);
 			continue;
 		}
-		oneAtLeast = 1;
+		
 	}
-	if (!oneAtLeast) {
-		/* add the ST static component loader */
-		loader = calloc(1, sizeof(BOSA_COMPONENTLOADER));
-		if (loader == NULL) {
-			DEBUG(DEB_LEV_ERR, "not enough memory for this loader\n");
-			fclose(loaderFP);
-			return OMX_ErrorInsufficientResources;
-		}
-		st_static_setup_component_loader(loader);
-		eError = BOSA_AddComponentLoader(loader);
-		if (eError != OMX_ErrorNone) {
-			free(loader);
-			return OMX_ErrorInsufficientResources;
-		}
-	} else {
-		/* Always register ST static component loader even if another one found */
-		loader = calloc(1, sizeof(BOSA_COMPONENTLOADER));
-		st_static_setup_component_loader(loader);
-		eError = BOSA_AddComponentLoader(loader);
-		if (eError != OMX_ErrorNone) {
-			free(loader);
-			return OMX_ErrorInsufficientResources;
-		}
+
+	/* add the ST static component loader */
+	loader = calloc(1, sizeof(BOSA_COMPONENTLOADER));
+	if (loader == NULL) {
+		DEBUG(DEB_LEV_ERR, "not enough memory for this loader\n");
+		fclose(loaderFP);
+		return OMX_ErrorInsufficientResources;
 	}
+	st_static_setup_component_loader(loader);
+	eError = BOSA_AddComponentLoader(loader);
+	if (eError != OMX_ErrorNone) {
+		free(loader);
+		return OMX_ErrorInsufficientResources;
+	}
+
 	if (libraryFileName)
 	{
 		free(libraryFileName);

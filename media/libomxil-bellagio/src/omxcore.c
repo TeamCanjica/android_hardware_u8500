@@ -86,12 +86,14 @@ OMX_ERRORTYPE BOSA_AddComponentLoader(BOSA_COMPONENTLOADER *pLoader)
   BOSA_COMPONENTLOADER **newLoadersList = NULL;
   assert(pLoader);
 
+  bosa_loaders++;
   newLoadersList = realloc(loadersList, bosa_loaders * sizeof(BOSA_COMPONENTLOADER *));
 
-  if (!newLoadersList)
+  if (!newLoadersList) {
+    bosa_loaders--;
     return OMX_ErrorInsufficientResources;
+  }
 
-  bosa_loaders++;
   loadersList = (volatile BOSA_COMPONENTLOADER **) newLoadersList;
 
   loadersList[bosa_loaders - 1] = pLoader;
@@ -263,7 +265,7 @@ OMX_ERRORTYPE OMX_ComponentNameEnum(
 {
   OMX_ERRORTYPE err = OMX_ErrorNone;
   int i = 0;
-    int index = 0;
+   unsigned int index = 0;
     int offset = 0;
 
   DEBUG(DEB_LEV_FUNCTION_NAME, "In %s\n", __func__);
@@ -370,19 +372,23 @@ OMX_ERRORTYPE OMX_GetRolesOfComponent (
   OMX_U8 **roles) {
   OMX_ERRORTYPE err = OMX_ErrorNone;
   int i;
+  OMX_U32 NumRoles;
 
   DEBUG(DEB_LEV_FUNCTION_NAME, "In %s\n", __func__);
   for (i = 0; i < bosa_loaders; i++) {
     if(loadersList[i]) {
+      NumRoles=*pNumRoles;
       err = loadersList[i]->BOSA_GetRolesOfComponent((struct BOSA_COMPONENTLOADER *) loadersList[i],
 						     CompName,
-						     pNumRoles,
+						     &NumRoles,
 						     roles);
       if (err == OMX_ErrorNone) {
+        *pNumRoles=NumRoles;
 	return OMX_ErrorNone;
       }
     }
   }
+  *pNumRoles=0;
   DEBUG(DEB_LEV_FUNCTION_NAME, "Out of %s\n", __func__);
   return OMX_ErrorComponentNotFound;
 }
@@ -402,8 +408,10 @@ OMX_ERRORTYPE OMX_GetComponentsOfRole (
   OMX_U32 *pNumComps,
   OMX_U8  **compNames) {
   OMX_ERRORTYPE err = OMX_ErrorNone;
-  int i,j;
-  int only_number_requested = 0, full_number=0;
+  int i;
+  unsigned int j;
+  int only_number_requested = 0;
+  unsigned int full_number=0;
   OMX_U32 temp_num_comp = 0;
 
   OMX_U8 **tempCompNames;
