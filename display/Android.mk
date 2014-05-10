@@ -14,8 +14,9 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := $(call my-dir)
+ifeq ($(TARGET_SOC), u8500)
 
-ifeq ($(TARGET_SOC),u8500)
-include $(call all-subdir-makefiles)
+display-libs := libblt_hw libcopybit librgalloc libhwcomposer liblights
+include $(call all-named-subdir-makefiles,$(display-libs))
+
 endif

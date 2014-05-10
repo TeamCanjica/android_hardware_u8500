@@ -1,4 +1,5 @@
-# Copyright (C) 2013 The Android Open Source Project
+#
+# Copyright (C) 2014 TeamCanjica https://github.com/TeamCanjica
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,11 +12,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
-LOCAL_PATH := $(call my-dir)
+ifeq ($(TARGET_SOC), u8500)
 
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := healthd_board_montblanc.cpp
-LOCAL_MODULE := libhealthd.$(TARGET_BOARD_PLATFORM)
-LOCAL_C_INCLUDES := system/core/healthd
-include $(BUILD_STATIC_LIBRARY)
+media-libs := libomxil-bellagio
+include $(call all-named-subdir-makefiles,$(media-libs))
+
+endif
