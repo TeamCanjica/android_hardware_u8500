@@ -12,13 +12,13 @@
 
 #define OMX_STE_INDEX_CONFIG_FRAMESELECTRATIO_NAME       "OMX.STE.Index.Config.FrameSelectRatio"
 #define OMX_STE_INDEX_PARAM_FRAMERATERANGE_NAME       "OMX.STE.Index.Param.FrameRateRange"
-// #define OMX_STE_INDEX_CONFIG_COMMON_ZOOMMODE_NAME	"OMX.STE.Index.Config.Common.ZoomMode"
+#define OMX_STE_INDEX_CONFIG_COMMON_ZOOMMODE_NAME	"OMX.STE.Index.Config.Common.ZoomMode"
 #define OMX_STE_INDEX_CONFIG_COMMON_LENSPARAMETER   "OMX.STE.Index.Config.Common.LensParameters"
 #ifdef FREQ_SCALING_ALLOWED
 #define OMX_STE_INDEX_CONFIG_COMMON_SCALING         "OMX.STE.Index.Config.Common.Scaling"
 #endif //FREQ_SCALING_ALLOWED
-// #define OMX_STE_INDEX_CONFIG_METERINGON_NAME   "OMX.STE.Index.Config.MeteringOn"
-// #define OMX_STE_INDEX_CONFIG_EXIF_TIMESTAMP_NAME "OMX.STE.Index.Config.Exif.Timestamp"
+#define OMX_STE_INDEX_CONFIG_METERINGON_NAME   "OMX.STE.Index.Config.MeteringOn"
+#define OMX_STE_INDEX_CONFIG_EXIF_TIMESTAMP_NAME "OMX.STE.Index.Config.Exif.Timestamp"
 #define OMX_STE_INDEX_CONFIG_PICTURE_SIZE   "OMX.STE.Index.Config.Picture.Size"
 
 
@@ -129,16 +129,16 @@ typedef enum IFM_INDEXTYPE {
     OMX_STE_IndexConfigFrameSelectRatio,                /**< reference: OMX_STE_CONFIG_FRAMESELECTRATIOTYPE */
     OMX_STE_IndexParamFrameRateRange,                /**< reference: OMX_STE_PARAM_FRAMERATERANGE */
     OMX_Symbian_IndexConfigAnalyzerFeedback,            /**< reference: OMX_SYMBIAN_CONFIG_FEEDBACKTYPE */
-//    OMX_STE_IndexConfigCommonZoomMode,                  /**< reference: OMX_CONFIG_BOOLEANTYPE*/
+    OMX_STE_IndexConfigCommonZoomMode,                  /**< reference: OMX_CONFIG_BOOLEANTYPE*/
     IFM_IndexConfigSoftware,                            /**< reference: IFM_CONFIG_SOFTWAREVERSION*/
     OMX_STE_IndexConfigCommonLensParameters,            /**< reference: OMX_STE_CONFIG_LENSPARAMETERTYPE*/
-//    OMX_STE_IndexConfigMeteringOn,                       /**< reference: OMX_CONFIG_BOOLEANTYPE*/
+    OMX_STE_IndexConfigMeteringOn,                       /**< reference: OMX_CONFIG_BOOLEANTYPE*/
     OMX_STE_IndexConfigPictureSize,				        /**< reference: OMX_STE_CONFIG_PICTURESIZETYPE*/    
 #ifdef FREQ_SCALING_ALLOWED
     OMX_STE_IndexConfigCommonScaling,                   /**< reference: IFM_CONFIG_SCALING_MODETYPE*/
 #endif //FREQ_SCALING_ALLOWED
     OMX_STE_IndexConfigExtradata,                       /**< reference: OMX_SYMBIAN_CONFIG_EXIFSETTINGSTYPE*/
-//    OMX_STE_IndexConfigExifTimestamp, /**< reference: OMX_TIME_CONFIG_TIMESTAMPTYPE */
+    OMX_STE_IndexConfigExifTimestamp, /**< reference: OMX_TIME_CONFIG_TIMESTAMPTYPE */
     IFM_IndexStartImgfilter = (IFM_IndexStartExtensions+700)
 
 } IFM_INDEXTYPE;
