@@ -25,7 +25,8 @@
   02110-1301  USA
 
 */
-
+#include <sys/syscall.h>
+#include <unistd.h>
 #include <omxcore.h>
 #include <omx_base_source.h>
 
@@ -320,7 +321,7 @@ void* omx_base_source_twoport_BufferMgmtFunction (void* param) {
       }
     }
 
-    for(i=0;i < (omx_base_component_Private->sPortTypesParam[OMX_PortDomainAudio].nPorts  +
+    for(i=0;(unsigned int)i < (omx_base_component_Private->sPortTypesParam[OMX_PortDomainAudio].nPorts  +
                  omx_base_component_Private->sPortTypesParam[OMX_PortDomainVideo].nPorts +
                  omx_base_component_Private->sPortTypesParam[OMX_PortDomainImage].nPorts +
                  omx_base_component_Private->sPortTypesParam[OMX_PortDomainOther].nPorts -1);i++) {

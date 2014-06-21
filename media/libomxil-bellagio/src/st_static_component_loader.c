@@ -42,6 +42,7 @@
 #include "st_static_component_loader.h"
 #include "omx_reference_resource_manager.h"
 #include "base/omx_base_component.h"
+extern ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 
 /** This pointer holds and handle allocate by this loader and requested by
  * some application. If the IL client does not de-allocate it calling
